@@ -1,12 +1,11 @@
 #%% Import libraries
 import os
-from sklearn.utils.validation import column_or_1d
 import xgboost as xgb
 from xgboost import XGBRegressor
 import numpy as np
 import pandas as pd
 
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+from sklearn.metrics import r2_score
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import MinMaxScaler
 
@@ -37,9 +36,9 @@ df = pd.concat([df,df_cat],axis=1)
 df.dropna(inplace=True)
 
 # %%
-train_dataset = df.sample(frac=0.85, random_state=42)
+train_dataset = df.sample(frac=0.90, random_state=42)
 train_dataset = (train_dataset[(train_dataset.Order_Year == 2017) & 
-        (train_dataset.Order_Month == 12)])
+        (train_dataset.x9_December == 1)])
 
 X_test = train_dataset.drop(columns=['Profit'])
 y_test = train_dataset['Profit']
@@ -56,9 +55,43 @@ X_test = mms.transform(X_test)
 
 #%%
 xmod = XGBRegressor()
-xmod = xmod.fit(X_train,y_train)
+xmod = (xmod.fit(X_train,y_train))
+y_hat = xmod.predict(X_test)
 y_hat = xmod.predict(X_test)
 r2_score(y_test, y_hat)
+
+
+#%%
+
+xmod.save_model('XGBmodel03.h5')
+# 0.6549956655283837
+#%%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #%%
 def plot_loss(history):
   plt.plot(history.history['loss'], label='loss')
@@ -86,13 +119,25 @@ def sketch(epoch, lr):
 # Build model
 def build_model(norm):
     model = keras.Sequential([
-        layers.Dense(2048, activation=tf.nn.leaky_relu),
-        layers.Dense(2048, activation=tf.nn.leaky_relu),
-        layers.Dense(1024, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+        layers.Dense(200, activation=tf.nn.leaky_relu),
+
+
+        #layers.Dense(100, activation=tf.nn.leaky_relu),
         layers.Dense(1)
     ])    
         
-    (model.compile(optimizer=tf.optimizers.Adam(0.0001) , 
+    (model.compile(optimizer=tf.optimizers.Nadam(0.001),
                   loss='mean_squared_error',
                   metrics=[tf.keras.metrics.MeanSquaredError()]))
     return model
@@ -106,7 +151,7 @@ callback = keras.callbacks.LearningRateScheduler(schedule=sketch)
 history = model.fit(
     X_train,
     y_train,
-    # batch_size=250,
+    batch_size=50,
     validation_split=0.2,
     epochs = 100,
     # callbacks=[callback],
@@ -114,7 +159,16 @@ history = model.fit(
 )
 
 plot_loss(history)
+
+#%%
+# Learning rate #
+# 0.01 goodish
+# 0.03 XXX
+# 0.003 
 # %%
 y_hat = model.predict(X_test)
 r2_score(y_test,y_hat)
+# %%
+model.save('03NN.h5')
+# Best: 0.6318819258327169
 # %%
