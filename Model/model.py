@@ -1,5 +1,6 @@
 #%% Import libraries
 import os
+from sklearn.utils.validation import column_or_1d
 import xgboost as xgb
 from xgboost import XGBRegressor
 import numpy as np
@@ -19,16 +20,9 @@ from sklearn.preprocessing import MinMaxScaler
 
 PATH = os.getcwd()[:-5]
 DATA_PATH = PATH + "Data Analysis\sales EDA.csv"
-
 df = pd.read_csv(DATA_PATH)
-drop_lst = (['Row ID', 'Unnamed: 0',
-            'Order Date', 'Ship Date', 
-            'Order ID', 'Product Name',
-            'Customer Name','Country',
-            'Ship_DOW','Ship_Year',
-            'Ship_Month', 'Customer ID',
-            'Product ID'])
-df.drop(drop_lst, axis=1, inplace=True)
+df.drop(columns=['Unnamed: 0'], inplace=True)
+
 
 
 # %% One Hot Encode
@@ -45,7 +39,7 @@ df.dropna(inplace=True)
 # %%
 train_dataset = df.sample(frac=0.85, random_state=42)
 train_dataset = (train_dataset[(train_dataset.Order_Year == 2017) & 
-        (train_dataset.x9_December == 1)])
+        (train_dataset.Order_Month == 12)])
 
 X_test = train_dataset.drop(columns=['Profit'])
 y_test = train_dataset['Profit']
