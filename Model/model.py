@@ -5,7 +5,7 @@ from xgboost import XGBRegressor
 import numpy as np
 import pandas as pd
 
-from sklearn.metrics import r2_score
+from sklearn.metrics import r2_score, mean_squared_error
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import MinMaxScaler
 
@@ -36,7 +36,7 @@ df = pd.concat([df,df_cat],axis=1)
 df.dropna(inplace=True)
 
 # %%
-train_dataset = df.sample(frac=0.90, random_state=42)
+train_dataset = df.sample(frac=0.90, random_state=1)
 train_dataset = (train_dataset[(train_dataset.Order_Year == 2017) & 
         (train_dataset.x9_December == 1)])
 
@@ -59,6 +59,7 @@ xmod = (xmod.fit(X_train,y_train))
 y_hat = xmod.predict(X_test)
 y_hat = xmod.predict(X_test)
 r2_score(y_test, y_hat)
+mean_squared_error(y_test, y_hat, squared=False)
 
 
 #%%
