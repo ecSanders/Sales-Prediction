@@ -14,7 +14,9 @@ Some things that COCO could look into to improve their sales is by focusing wher
 
 ---
 **Figure 1**
+
 ![Average Sales](Average.png)
+
 *Numbers inside of each state are the number of transactions*
 
 ---
@@ -32,6 +34,7 @@ We can also take a look at what places are not being used to their fullest poten
 
 ---
 **Figure 3**
+
 ![Region](Region.png)
 
 ---
@@ -39,4 +42,4 @@ We can also take a look at what places are not being used to their fullest poten
 
 ###  III. Conclusion
 
-In all, although COCO has been doing reasonably well for the past few year, we have seen that their is still plenty of room for growth and expansion.  With a model that can reasonably tell you what the next month's profits will be, you can decide whether your marketing plans will be successful.  To get better results, the model will needs additional adjustments but will work within reason for now.   
+In all, although COCO has been doing reasonably well for the past few year, we have seen that their is still plenty of room for growth and expansion.  With a model that can reasonably tell you what the next month's profits will be, you can decide whether your marketing plans will be successful.  To get better results, the model will need additional adjustments but will work within reason for now.   
