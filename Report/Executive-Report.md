@@ -16,6 +16,7 @@ Some things that COCO could look into to improve their sales is by focusing wher
 **Figure 1**
 
 ![Average Sales](Average.png)
+
 *Numbers inside of each state are the number of transactions*
 
 ---
