@@ -15,7 +15,7 @@ Some things that COCO could look into to improve their sales is by focusing wher
 ---
 **Figure 1**
 
-![Average Sales](Average.png)
+![Average Sales](Charts/Average.png)
 
 *Numbers inside of each state are the number of transactions*
 
@@ -26,7 +26,7 @@ A further look into why Ohio and Texas are losing the company might be because o
 ---
 **Figure 2**
 
-![Discounts](Discounts.png)
+![Discounts](Charts/Discounts.png)
 
 ---
 
@@ -35,7 +35,7 @@ We can also take a look at what places are not being used to their fullest poten
 ---
 **Figure 3**
 
-![Region](Region.png)
+![Region](Charts/Region.png)
 
 ---
 
